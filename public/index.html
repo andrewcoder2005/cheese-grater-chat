@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cheese Grater Chat 🧀</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  </head>
+  <div id="editModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-btn" id="closeEditModal">&times;</span>
+    <h2>Edit Post</h2>
+    <form id="editForm">
+      <input type="hidden" id="editLinkId" />
+      <div class="form-row">
+        <label for="editTitle">Title:</label>
+        <input type="text" id="editTitle" required maxlength="100" />
+      </div>
+      <div class="form-row">
+        <label for="editUrl">URL:</label>
+        <input type="url" id="editUrl" required />
+      </div>
+      <div class="form-row">
+        <label for="editDescription">Description:</label>
+        <textarea id="editDescription" required maxlength="300"></textarea>
+      </div>
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+  <body>
+        <div id="toast"></div>
+<header class="navbar">
+  <h1 class="site-title">🧀 Cheese Grater Chat</h1>
+  <div class="search-bar">
+    <i class="fa fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Search posts..." />  
+  </div>
+  <nav class="nav-links">
+    <a href="/login" id="loginLink">Login</a>
+    <a href="/register" id="registerLink">Register</a>
+    <span id="profileInfo" style="display:none;"></span>
+    <span id="graterPoints" style="display:none; margin-left: 1rem;">🧀 Grater Points: 0</span>
+    <a href="#" id="favoritesLink" style="display:none; margin-left: 1rem;">My Favorites</a>
+    <button id="logoutBtn" hidden>Logout</button>
+  </nav>
+</header>
+
+<main class="main-layout">
+  <!-- Left side: link list -->
+  <section id="link-list" class="url-list">
+    <!-- Posts rendered here -->
+  </section>
+
+  <!-- Right side: controls and form -->
+  <aside class="right-panel">
+    <section id="sort-controls">
+      <label for="sortSelect">Sort by:</label>
+      <select id="sortSelect">
+        <option value="recent">Most Recent</option>
+        <option value="rating">Highest Rated</option>
+      </select>
+    </section>
+<section id="post-form-section" class="form-container">
+  <form id="link-form" class="url-form">
+    <h2>🧀 Submit a New Post</h2>
+
+    <div class="form-group">
+      <label for="postTitle">Title</label>
+      <input type="text" id="postTitle" name="title" required maxlength="100" placeholder="Cheddar tips, anyone?" />
+    </div>
+
+    <div class="form-group">
+      <label for="postUrl">URL</label>
+      <input type="url" id="postUrl" name="url" required placeholder="https://example.com" />
+    </div>
+
+    <div class="form-group">
+      <label for="postDescription">Description</label>
+      <textarea id="postDescription" name="description" required maxlength="300" placeholder="Tell us about your link..."></textarea>
+    </div>
+
+    <button type="submit" class="btn">Submit Post</button>
+  </form>
+
+  <div id="toast" class="toast">Post submitted successfully!</div>
+</section>
+    <section id="favorites-section" class="favorites-container">
+      <h2>My Favorite Posts</h2>
+      <ul id="favoritesList"></ul>
+    </section>
+  </aside>
+</main>
+
+
+    <script src="scripts/main.js" type="module"></script>
+    <script>
+      const logoutBtn = document.getElementById("logoutBtn");
+      const loginLink = document.getElementById("loginLink");
+      const registerLink = document.getElementById("registerLink");
+      const profileInfo = document.getElementById("profileInfo");
+      let user = null;
+
+      // Try to get the first user from localStorage (if array), or single user
+      try {
+        const stored = localStorage.getItem("user");
+        if (stored) {
+          let parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            user = parsed[0];
+          } else {
+            user = parsed;
+          }
+        }
+      } catch (e) {
+        user = null;
+      }
+
+      if (!user) {
+        if (logoutBtn) logoutBtn.hidden = true;
+        if (profileInfo) profileInfo.style.display = "none";
+        if (loginLink) loginLink.style.display = "inline";
+        if (registerLink) registerLink.style.display = "inline";
+        window.location.href = "/login";
+      } else {
+        if (logoutBtn) {
+          logoutBtn.hidden = false;
+          logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("user");
+            window.location.href = "/login";
+          });
+        }
+        if (profileInfo && user.username) {
+          profileInfo.textContent = `👤 ${user.username}`;
+          profileInfo.style.display = "inline";
+        }
+        if (loginLink) loginLink.style.display = "none";
+        if (registerLink) registerLink.style.display = "none";
+      }
+    </script>
+
+  </body>
+</html>

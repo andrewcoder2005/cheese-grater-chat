@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="register-page">
+    <div class="container">
+      <h1 class="heading-title">🧀 Join the Cheese Grater Club</h1>
+
+      <form action="/register" method="POST" id="register-form">
+        <h3>Username</h3>
+        <input
+          type="text"
+          name="username"
+          placeholder="Enter your username"
+          required
+          autocomplete="username"
+        />
+        <h3>Your Email</h3>
+        <input
+          type="email"
+          name="email"
+          placeholder="Your cheese-friendly email (eg: mark@example.com)"
+          required
+          autocomplete="email"
+        />
+        <h3>Your Password</h3>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password must be at least 6 characters long"
+          required
+          autocomplete="new-password"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div id="toast"></div>
+    <script src="scripts/auth.js" type="module"></script>
+  </body>
+</html>

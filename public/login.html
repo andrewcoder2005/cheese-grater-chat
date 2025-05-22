@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cheese Grater Chat Login</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="login-page">
+    <div class="container">
+      <h1 class="heading-title">Welcome Cheese Grater Lover</h1>
+      <form action="/login" method="POST" id="login-form" autocomplete="on">
+        <h3>Your Email</h3>
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email i.e: user1@example.com"
+          required
+          autocomplete="email"
+        />
+        <h3>Your Password</h3>
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+          autocomplete="current-password"
+        />
+        <button type="submit">Login</button>
+      </form>
+
+      <a href="register.html">Don't have an account yet? Create here!</a>
+    </div>
+    <div id="toast"></div>
+    <script src="scripts/auth.js" type="module"></script>
+  </body>
+</html>
