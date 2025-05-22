@@ -13,7 +13,8 @@ try {
   await client.connect();
 } catch (error) {
   console.log('Connection failed!', error);
-  Deno.exit(1)
+console.error("Database connection failed");
+throw new Error("Failed to connect to database");
 }
 
 export default client;
